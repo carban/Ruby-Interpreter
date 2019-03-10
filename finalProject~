@@ -1,0 +1,26 @@
+#lang eopl
+
+;Especificación Léxica
+
+(define lexemes
+  '((white-sp (whitespace) skip)
+    (comment​(​ "#"​ (​ arbno​ (​ not​ ​ #\newline​ ))) skip)
+    (identifier((​arbno ​ "@"​) letter (​ arbno​ (​ or​ letter digit ​ "_" "?" "="​ ))) symbol)
+    (number​ (digit (​ arbno​ digit)) number)
+    (​number (​ "-"​ digit (​ arbno​ digit)) number)
+    (text (​"\""​ (​ or​ letter whitespace)(arbno​ (or letter digit whitespace ​ ":"​ ​ "?"​ ​ "=" "'"​ )) ​ "\""​ ) string)
+  ))
+
+(define grammar
+  '((ruby-program ("ruby" exp-batch "end") a-program)
+    (exp-batch (expression (arbno expression)) a-batch)
+    (expression (simple-exp) a-simple-exp)
+    (expression ("declare" identifier (arbno (separated-list identifier ",") identifier)) declare-exp)
+    (expression ("puts" comp-value (arbno (separated-list identifier ",") comp-value) ";") puts-exp)
+    (expression ("if" comp-value (arbno "then") exp-batch
+                      (arbno ("elseif" comp-value (arbno "then") exp-batch))
+                      (arbno "else" exp-batch)
+                      "end"
+                      )if-exp)
+    (expression ("unless" comp-value (arbno "then") exp-batch (arbno ("else" exp-batch)) "end" ) unless-exp)
+    ))
