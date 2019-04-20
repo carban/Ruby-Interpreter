@@ -74,3 +74,8 @@
 ;;Multiple elements example
 ;;ruby declare a, b; b = [0, 10, 100]; a = [1, 2, 3, 4, 5]; for x in (0..4) do puts(a[x]); end puts b; end
 ;;ruby def f(n,m) declare z; n+=10; z = n; m*=(z+2); return m; end if((f(1,2)) > 4) then puts "hola"; else "mundo"; end end
+
+;;Objects example 
+;;ruby class Vector2D attr :x, :y; def initialize(x,y) @x = x; @y = y; end def x() return @x; end def x=(x) @x = x; end def y() return @y; end def y=(y) @y = y; end end class Vector3D < Vector2D attr :z; def initialize(x,y,z) @z = z; super initialize(x,y); end def z() return @z; end def z=(z) @z = z; end end declare a,b; a = Vector2D.new(1,2); b = Vector3D.new(3,4,5); puts (a.x()); puts(b.z()); end
+;;ruby class Integer attr :num; def initialize(num) @num = num; end def num=(num) @num = num; end def to_s() return @num; end end class Float < Integer attr :decm; def initialize(ent,decm) @decm = decm; super initialize(ent); end def to_s() return (@num + (@decm / (@decm * 10))); end end declare a; a = Float.new(1,1); puts(a.to_s()); a.num=(5); puts(a.to_s()); end
+
